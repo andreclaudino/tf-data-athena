@@ -96,7 +96,6 @@ class AthenaConnector:
                 results_data = _parse_columns_types(column_info)
 
                 output_file = _output_file(response)
-                logging.info(_make_error_message(response))
                 return dict(output_file=output_file, column_types=results_data)
 
             if status in ['FAILED', 'CANCELLED']:
