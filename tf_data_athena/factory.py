@@ -4,7 +4,7 @@ from tf_data_athena.aws_persistense.athena_dataset import AthenaDataset
 import tensorflow as tf
 
 
-def create_athena_dataset(query: str, s3_output_location: str, waiting_interval: float = 0.1,
+def create_athena_dataset(query: str, s3_output_location: str, waiting_interval: float = 1.0,
                           num_parallel_calls=tf.data.experimental.AUTOTUNE, **kwargs) -> AthenaDataset:
     athena_connector = AthenaConnector(s3_output_location, waiting_interval)
 

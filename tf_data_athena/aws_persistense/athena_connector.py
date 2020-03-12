@@ -13,6 +13,20 @@ def _execution_status(response):
     return response['QueryExecution']['Status']['State']
 
 
+def _make_error_message(response):
+    status = response['QueryExecution']['Status']
+
+    state = status['State']
+    reason = status['StateChangeReason']
+    submission = status['SubmissionDateTime']
+    completion = status['CompletionDateTime']
+    query_id = status["QueryExecutionId"]
+
+    return f"Query {query_id} stated executing at {str(submission)} and change to status {state} at " \
+           f"{str(completion)} with message {reason}"
+
+
+
 def _output_file(response):
     return response["QueryExecution"]["ResultConfiguration"]["OutputLocation"]
 
@@ -82,13 +96,14 @@ class AthenaConnector:
                 results_data = _parse_columns_types(column_info)
 
                 output_file = _output_file(response)
+                logging.info(_make_error_message(response))
                 return dict(output_file=output_file, column_types=results_data)
 
             if status in ['FAILED', 'CANCELLED']:
-                logging.error("Query failed")
+                logging.error(_make_error_message(response))
                 raise Exception(f"Query failed to execute. status={status}")
 
-            logging.info(f'Query return status = {status}')
+            logging.info(f'Query ({query_execution_id}) actual status is {status}')
             time.sleep(self.waiting_time)
 
 
