@@ -2,6 +2,12 @@
 
 An AWS athena library for `tensorflow.data.Dataset`. If you don't know `tf.data`, take a look at [documentation](https://www.tensorflow.org/api_docs/python/tf/data/Dataset) and this [example](https://www.tensorflow.org/guide/data).
 
+## Instalation
+Install is as simple as `pip install`:
+```SHELL
+pip install tf-data-athena
+```
+
 ## How to use
 Use is almost as simple as another tf.Dataset implementation. You just need to create a dataset using the funciton `create_athena_dataset`
 
