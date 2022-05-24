@@ -25,7 +25,7 @@ setup(
     setup_requires=['wheel', 'twine'],
     install_requires=[
         'tensorflow_datasets==2.1.0',
-        'tensorflow==2.1.0',
+        'tensorflow==2.6.4',
         'boto3==1.12.17'
     ]
 )
